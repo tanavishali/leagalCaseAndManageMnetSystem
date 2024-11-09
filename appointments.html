@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments - Legal Case Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+    /* General reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Color Scheme */
+    :root {
+      --primary-color: #1e3a8a; /* Deep navy */
+      --accent-color: #4f46e5; /* Bright blue */
+      --bg-color: #f3f4f6; /* Light gray background */
+      --text-color: #333; /* Dark text color */
+      --light-text: #6b7280; /* Lighter text for descriptions */
+      --card-bg: #ffffff; /* Card background color */
+    }
+
+    /* Basic styling */
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--primary-color);
+    }
+
+    /* Dashboard container */
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar styling */
+    .sidebar {
+      width: 250px;
+      background-color: var(--primary-color);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      height: 100%;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar nav ul li {
+      margin: 10px 0;
+    }
+
+    .sidebar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar nav ul li a:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* Main content styling */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      margin-left: 270px;
+    }
+
+    /* Card layout for sections */
+    section {
+      background-color: var(--card-bg);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Form inputs and buttons */
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      transition: border-color 0.3s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent-color);
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: var(--accent-color);
+    }
+    /* responsive */
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      /* Hide sidebar on smaller screens and adjust layout */
+      .sidebar {
+        display: none;
+      }
+
+      /* Stack main content and adjust margin for mobile view */
+      .main-content {
+        margin-left: 0;
+        padding: 10px;
+      }
+
+      /* Adjust section padding and margin for mobile */
+      section {
+        padding: 15px;
+        margin-top: 15px;
+      }
+
+      /* Smaller fonts and padding for mobile */
+      h1,
+      h2 {
+        font-size: 1.5em;
+      }
+    }
+
+    /* Responsive layout for very small screens */
+    @media (max-width: 480px) {
+      /* Reduce input and button sizes */
+      input,
+      select,
+      textarea,
+      button {
+        padding: 8px;
+        font-size: 0.9em;
+      }
+
+      button {
+        padding: 10px;
+        font-size: 0.9em;
+      }
+
+      /* Reduce header font sizes */
+      h1 {
+        font-size: 1.3em;
+      }
+
+      h2 {
+        font-size: 1.2em;
+      }
+    }
+    /* Form fields and button adjustments */
+    @media (max-width: 768px) {
+      input,
+      select,
+      textarea {
+        padding: 8px;
+        margin-top: 8px;
+      }
+
+      button {
+        padding: 10px;
+        margin-top: 10px;
+      }
+    }
+    /* menustyleres */
+    /* Hamburger menu styles */
+    .hamburger-menu {
+      display: none;
+      font-size: 1.5em;
+      padding: 10px;
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: #fff;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      border-radius: 5px;
+      z-index: 1000;
+    }
+
+    /* Mobile sidebar */
+    .mobile-sidebar {
+      display: none;
+      background-color: var(--primary-color);
+      position: fixed;
+      width: 200px;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      padding: 20px;
+      color: #fff;
+    }
+
+    .mobile-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .mobile-sidebar ul li {
+      margin: 15px 0;
+    }
+
+    .mobile-sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger-menu {
+        display: block;
+      }
+    }
+  </style>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h2>Dashboard</h2>
+        <nav>
+          <ul>
+            <li><a href="dashboard.html">Home</a></li>
+            <li><a href="clients.html">Client Management</a></li>
+            <li><a href="cases.html">Case Management</a></li>
+            <li><a href="appointments.html">Appointments</a></li>
+            <li><a href="documents.html">Document Management</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="login.html">Logout</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <!-- menu -->
+      <div class="hamburger-menu" onclick="toggleMenu()">&#9776; Menu</div>
+      <nav id="mobile-nav" class="mobile-sidebar">
+        <ul>
+          <li><a href="dashboard.html">Home</a></li>
+          <li><a href="clients.html">Client Management</a></li>
+          <li><a href="cases.html">Case Management</a></li>
+          <li><a href="appointments.html">Appointments</a></li>
+          <li><a href="documents.html">Document Management</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="login.html">Logout</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <h1>Appointments</h1>
+
+        <!-- Add Appointment Form -->
+        <section class="appointment-form">
+          <h2>Schedule New Appointment</h2>
+          <form id="add-appointment-form">
+            <label for="appointment-client">Client Name:</label>
+            <input type="text" id="appointment-client" required />
+
+            <label for="appointment-date">Date:</label>
+            <input type="date" id="appointment-date" required />
+
+            <label for="appointment-time">Time:</label>
+            <input type="time" id="appointment-time" required />
+
+            <label for="appointment-purpose">Purpose:</label>
+            <input type="text" id="appointment-purpose" required />
+
+            <button type="submit">Add Appointment</button>
+          </form>
+        </section>
+
+        <!-- Appointment List -->
+        <section class="appointment-list">
+          <h2>Upcoming Appointments</h2>
+          <ul id="appointment-list">
+            <!-- Placeholder appointments -->
+            <li>
+              <strong>John Doe</strong> - Date: 2023-10-01 - Time: 10:00 AM -
+              Purpose: Court Hearing
+            </li>
+            <li>
+              <strong>Jane Smith</strong> - Date: 2023-11-05 - Time: 2:00 PM -
+              Purpose: Consultation
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+    <script src="appointments.js"></script>
+  </body>
+</html>
